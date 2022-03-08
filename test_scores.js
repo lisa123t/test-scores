@@ -82,7 +82,6 @@ function addScore() {
         return;
     }
     
-    score.val('');
     if (name.val()===''){
         // alert('Name and score must have values')
         $("#name_span").text("Required"); 

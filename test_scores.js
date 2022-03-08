@@ -36,11 +36,6 @@ function initializeResults() {
 }
 
 
-function displayScores() {
-    // Add your code here
-    let scores = $('#scores'); 
-    scores.toggle();  
-}
 
 function displayResults() {
     let results = $('#results');
@@ -58,6 +53,7 @@ function insertNewTableElement(newName, newScore) {
     rowCount = document.getElementById("scores_table").getElementsByTagName("tr").length;
 }
 
+
 function initializeScoresTable() {
     // Remove header row from table
     $('#scores_table tr').slice(1).remove();
@@ -65,6 +61,13 @@ function initializeScoresTable() {
         insertNewTableElement($('#scores_table tr:last').after('<tr> <td>' + 
         namesArr[i] + '</td><td>' + scoresArr[i] + '</td></tr>'));
     }
+}
+
+
+function displayScores() {
+    // Add your code here
+    let scores = $('#scores'); 
+    scores.toggle();  
 }
 
 function resetInputs () {
@@ -77,6 +80,35 @@ function addScore() {
     let validated = true;  
     let score = $('#score');
     let name = $('#name');
+
+    let pattern = /[^A-Za-z . ' -]/; 
+    if (name.val() === '' || pattern.test(name.val())) { 
+        if (name.val() === ''){ 
+          $("#name_span").text("Required"); 
+    }
+        else {
+            $("#name_span").text("Invalid"); 
+        }
+        validated = false; 
+
+    } 
+    if (score.val() === '' || isNaN(score.val())) {
+        if (isNaN(score.val())) {
+            $("#score_span").text(" Invalid");
+        }
+        else
+        {
+            $("#score_span").text(" Required");
+        }   
+        validated = false; 
+    }
+    if ( ! validated) {
+        return;  
+    }
+
+
+
+
     if (score.val() === '' || name.val() === '') {
         alert('Name and score must have values');
         return;
@@ -127,3 +159,4 @@ window.onload = function () {
     initializeResults();
     initializeScoresTable();
 }
+
